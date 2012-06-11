@@ -4,3 +4,16 @@
 *.jar
 *.war
 *.ear
+
+# Idea Files #
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/ant.xml
+.idea/compiler.xml
+.idea/artifacts
+.idea/libraries
+.idea/dictionaries
+.idea/modules.xml
+.idea/misc.xml
+atlassian-ide-plugin.xml
+*.iml
