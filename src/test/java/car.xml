@@ -1,0 +1,5 @@
+<car name="Mondeo">
+	<body doors="4" />
+	<doors>5</doors>
+	<air-conditioning />
+</car>
