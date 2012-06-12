@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Package: uk.org.uplink.configproxy
-Bundle-Name: config-proxy
-Bundle-Version: 0.1
+Package: com.github.steveash.typedconfig
+Bundle-Name: typed-config
+Bundle-Version: 0.2
 Bundle-License: http://www.apache.org/licenses/LICENSE-2.0.txt
