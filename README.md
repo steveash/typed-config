@@ -9,6 +9,27 @@ manage my own features for the current project that is driving this, I decided t
 for familiarity.  I hope that we can reconcile our code bases at some point in the future, but until then, this
 is where I am doing my development).
 
+using typed-config
+============
+typed-config isn't really read for prime-time yet, but you can start using the snapshots by pulling them from my
+github maven repo:
+
+```
+<repositories>
+  <repository>
+    <id>steveash-snapshots</id>
+    <url>https://github.com/steveash/mvn-repo/raw/master/snapshots</url>
+  </repository>
+</repositories>
+
+<dependencies>
+  <dependency>
+    <groupId>com.github.steveash</groupId>
+    <artifactId>typed-config</artifactId>
+    <version>0.2-SNAPSHOT</version>
+  </dependency>
+</dependencies>
+```
 
 license
 ============
