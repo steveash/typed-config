@@ -19,8 +19,6 @@ package com.github.steveash.typedconfig;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.SubnodeConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
-import org.apache.commons.configuration.tree.ConfigurationNode;
-import org.apache.commons.configuration.tree.ExpressionEngine;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -16,7 +16,6 @@
 
 package com.github.steveash.typedconfig.resolver.type;
 
-import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.junit.Before;

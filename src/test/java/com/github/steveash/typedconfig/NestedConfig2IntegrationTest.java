@@ -16,10 +16,8 @@
 
 package com.github.steveash.typedconfig;
 
-import com.github.steveash.typedconfig.ConfigProxyFactory;
 import org.apache.commons.configuration.XMLConfiguration;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
 import org.junit.Before;
 import org.junit.Test;
 import com.github.steveash.typedconfig.annotation.Config;
