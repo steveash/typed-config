@@ -138,13 +138,13 @@ public class ProxyValueResolver implements ValueResolver {
 
     private ValueResolver makeToStringResolver(Class<?> interfaze, ImmutableMap<Method, ValueResolver> resolverMap) {
         ToStringResolver resolver = new ToStringResolver(interfaze, resolverMap);
-        ConfigBinding toStringBinding = ConfigBinding.makeRootBinding(TypeToken.of(String.class));
+        ConfigBinding toStringBinding = ConfigBinding.makeForKeyAndType("$TOSTRING$", TypeToken.of(String.class));
         return context.getCacheStrategy().decorateForCaching(resolver, toStringBinding, context);
     }
 
     private ValueResolver makeHashResolver(Class<?> interfaze, ImmutableMap<Method, ValueResolver> resolverMap) {
         HashCodeResolver resolver = new HashCodeResolver(interfaze, resolverMap);
-        ConfigBinding hashBinding = ConfigBinding.makeRootBinding(TypeToken.of(Integer.class));
+        ConfigBinding hashBinding = ConfigBinding.makeForKeyAndType("$HASHCODE$",TypeToken.of(Integer.class));
         return context.getCacheStrategy().decorateForCaching(resolver, hashBinding, context);
     }
 
