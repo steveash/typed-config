@@ -20,7 +20,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.github.steveash</groupId>
+  <groupId>com.github.steveash.typed-config</groupId>
   <artifactId>typed-config</artifactId>
   <version>0.2-SNAPSHOT</version>
 
@@ -28,11 +28,23 @@
     <license>
       <name>Apache License, Version 2.0</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
     </license>
   </licenses>
 
+  <scm>
+    <connection>scm:git:git@github.com:steveash/typed-config.git</connection>
+    <url>scm:git:git@github.com:steveash/typed-config.git</url>
+    <developerConnection>scm:git:git@github.com:steveash/typed-config.git</developerConnection>
+  </scm>
+
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.2.2</version>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -78,7 +90,7 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.8.1</version>
+      <version>4.10</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -100,6 +112,25 @@
       <version>1.6.4</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
+  <profiles>
+    <profile>
+      <id>release-argo</id>
+      <distributionManagement>
+        <repository>
+          <id>argo</id>
+          <name>Argo Repository</name>
+          <url>http://serv107.argo.local/archiva/repository/argo</url>
+          <layout>default</layout>
+        </repository>
+        <snapshotRepository>
+          <id>argo.snapshots</id>
+          <name>Argo Repository Snapshots</name>
+          <url>http://serv107.argo.local/archiva/repository/argo.snapshots</url>
+          <layout>default</layout>
+        </snapshotRepository>
+        <downloadUrl>http://serv107.argo.local/archiva/repository/com.argodata</downloadUrl>
+      </distributionManagement>
+    </profile>
+  </profiles>
 </project>
