@@ -19,6 +19,7 @@ package com.github.steveash.typedconfig;
 import java.util.Iterator;
 
 import org.apache.commons.configuration.HierarchicalConfiguration;
+import org.apache.commons.configuration.tree.ConfigurationNode;
 
 /**
  * @author Steve Ash
@@ -27,10 +28,12 @@ public class ConfigurationPrinter {
 
     public String printToString(HierarchicalConfiguration config) {
         StringBuilder sb = new StringBuilder();
-        sb.append("Configuration root: ").append(config.getRootNode().getName()).append("\n");
+
+        String name = (config.getRootNode() != null ? config.getRootNode().getName() : "");
+        sb.append("Configuration root: ").append(name).append("\n");
         sb.append("----------------------------------\n");
         Iterator<String> keys = config.getKeys();
-        while (keys.hasNext()) {
+        while (keys != null && keys.hasNext()) {
             String key = keys.next();
             sb.append("  ");
             sb.append("[").append(key).append("] -> ").append(config.getString(key));
