@@ -16,6 +16,9 @@
 
 package com.github.steveash.typedconfig.defaultvalue;
 
+import org.apache.commons.configuration.HierarchicalConfiguration;
+
+import com.github.steveash.typedconfig.ConfigBinding;
 import com.github.steveash.typedconfig.exception.RequiredConfigurationKeyNotPresentException;
 import com.github.steveash.typedconfig.resolver.ForwardingValueResolver;
 import com.github.steveash.typedconfig.resolver.ValueResolver;
@@ -25,8 +28,11 @@ import com.github.steveash.typedconfig.resolver.ValueResolver;
  */
 public class RequiredValueResolverDecorator extends ForwardingValueResolver {
 
-    public RequiredValueResolverDecorator(ValueResolver delegate) {
+    private final HierarchicalConfiguration config;
+
+    public RequiredValueResolverDecorator(ValueResolver delegate, HierarchicalConfiguration config) {
         super(delegate);
+        this.config = config;
     }
 
     @Override
@@ -35,6 +41,7 @@ public class RequiredValueResolverDecorator extends ForwardingValueResolver {
         if (o != null)
             return o;
 
-        throw RequiredConfigurationKeyNotPresentException.makeForMissingKey(delegate.configurationKeyToLookup());
+        throw RequiredConfigurationKeyNotPresentException.makeForMissingKey(delegate.configurationKeyToLookup(),
+                config);
     }
 }

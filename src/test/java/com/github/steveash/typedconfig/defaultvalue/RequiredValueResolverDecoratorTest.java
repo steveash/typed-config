@@ -16,6 +16,7 @@
 
 package com.github.steveash.typedconfig.defaultvalue;
 
+import org.apache.commons.configuration.HierarchicalConfiguration;
 import org.junit.Test;
 import com.github.steveash.typedconfig.exception.RequiredConfigurationKeyNotPresentException;
 import com.github.steveash.typedconfig.resolver.ValueResolver;
@@ -34,13 +35,13 @@ public class RequiredValueResolverDecoratorTest {
         ValueResolver resolver = mock(ValueResolver.class);
         when(resolver.resolve()).thenReturn(123);
 
-        assertEquals(123, new RequiredValueResolverDecorator(resolver).resolve());
+        assertEquals(123, new RequiredValueResolverDecorator(resolver, mock(HierarchicalConfiguration.class)).resolve());
     }
 
     @Test(expected = RequiredConfigurationKeyNotPresentException.class)
     public void shouldThrowWhenNullResponse() throws Exception {
         ValueResolver resolver = mock(ValueResolver.class);
-        new RequiredValueResolverDecorator(resolver).resolve();
+        new RequiredValueResolverDecorator(resolver, mock(HierarchicalConfiguration.class)).resolve();
         fail();
     }
 }

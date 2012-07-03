@@ -64,7 +64,7 @@ public class ConfigValueDefaultValueStrategy implements DefaultValueStrategy {
         }
 
         if (isValueRequired(binding)) {
-            resolver = new RequiredValueResolverDecorator(resolver);
+            resolver = new RequiredValueResolverDecorator(resolver, config);
         }
         return resolver;
     }

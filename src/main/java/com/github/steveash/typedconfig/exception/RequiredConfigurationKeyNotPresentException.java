@@ -15,6 +15,9 @@
  */
 package com.github.steveash.typedconfig.exception;
 
+import org.apache.commons.configuration.HierarchicalConfiguration;
+
+import com.github.steveash.typedconfig.ConfigurationPrinter;
 import com.github.steveash.typedconfig.Option;
 
 /**
@@ -24,11 +27,14 @@ import com.github.steveash.typedconfig.Option;
  */
 public class RequiredConfigurationKeyNotPresentException extends RuntimeException {
     private static final long serialVersionUID = 1L;
+    private static final ConfigurationPrinter printer = new ConfigurationPrinter();
 
-    public static RequiredConfigurationKeyNotPresentException makeForMissingKey(String key) {
-        return new RequiredConfigurationKeyNotPresentException("The configuration key " + key + " was not found in " +
+    public static RequiredConfigurationKeyNotPresentException makeForMissingKey(String key,
+            HierarchicalConfiguration config) {
+
+        return new RequiredConfigurationKeyNotPresentException("The configuration key [" + key + "] was not found in " +
                 "the configuration and the property is marked as 'required' or is a primitive value which cannot be " +
-                "missing");
+                "missing.  The current configuration is:\n" + printer.printToString(config));
     }
 
     public RequiredConfigurationKeyNotPresentException(final String msg) {
