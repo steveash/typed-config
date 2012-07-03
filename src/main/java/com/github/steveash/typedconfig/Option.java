@@ -29,7 +29,15 @@ public enum Option {
 	 * Changes the behaviour of getting a {@link com.github.steveash.typedconfig.annotation.Config} into a 'check exists' - the method will return true if the key for the Config
 	 * exists in the configuration, regardless of its value and even if it has no value. The method must return a boolean if this option is used.
 	 */
-	CHECK_KEY_EXISTS
+	CHECK_KEY_EXISTS,
+
+    /**
+     * Changes the system to use the resulting config value as a key to do _another_ lookup into the config.  This
+     * is very similar to the variable interpolation feature already present in commons config -- with the difference
+     * that this result is passed to the expression engine instead of the ConfigInterpolator.  This means that
+     * any valid expressionEngine expression is good to use.
+     */
+    LOOKUP_RESULT
 
 	;
 

@@ -16,11 +16,13 @@
 
 package com.github.steveash.typedconfig.resolver;
 
+import com.github.steveash.typedconfig.Option;
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.reflect.TypeToken;
 import org.apache.commons.configuration.HierarchicalConfiguration;
+
 import com.github.steveash.typedconfig.ConfigBinding;
 import com.github.steveash.typedconfig.ConfigFactoryContext;
 
@@ -34,7 +36,7 @@ import java.util.Map.Entry;
  *
  * @author Steve Ash
  */
-public class ProxyValueResolver implements ValueResolver {
+public class ProxyValueResolver implements ValueResolver, ValueResolverForBindingFactory {
 
     private final ConfigBinding parentBinding;
     private final HierarchicalConfiguration config;
@@ -72,20 +74,29 @@ public class ProxyValueResolver implements ValueResolver {
     private <T> T tryToMake(Class<T> interfaze, HierarchicalConfiguration configuration) throws NoSuchMethodException {
         Builder<Method, ValueResolver> builder = ImmutableMap.builder();
         for (Method method : interfaze.getDeclaredMethods()) {
-            builder.put(method, makeResolverFor(interfaze, method, configuration));
+            builder.put(method, makeResolverForMethod(interfaze, method, configuration));
         }
         return makeProxyForResolvers(interfaze, builder.build());
     }
 
-    private ValueResolver makeResolverFor(Class<?> interfaze, Method method, HierarchicalConfiguration config) {
+    private ValueResolver makeResolverForMethod(Class<?> interfaze, Method method, HierarchicalConfiguration config) {
 
         ConfigBinding newMethodBinding = context.getBindingFor(interfaze, method, config);
-        ValueResolver resolver = context.makeResolverForBinding(config, newMethodBinding, parentBinding);
+        if (newMethodBinding.getOptions().contains(Option.LOOKUP_RESULT)) {
+            return new LookupValueResolver(config, newMethodBinding, interfaze, method, this);
+        }
+
+        return makeResolverForBinding(newMethodBinding, interfaze, method, config);
+    }
+
+    public ValueResolver makeResolverForBinding(ConfigBinding binding, Class<?> interfaze, Method method,
+            HierarchicalConfiguration config) {
+        ValueResolver resolver = context.makeResolverForBinding(config, binding, parentBinding);
 
         resolver = context.getDefaultStrategy().decorateForDefaults(
-                resolver, config, newMethodBinding, context, interfaze, method);
+                resolver, config, binding, context, interfaze, method);
         resolver = context.getValidationStrategy().decorateForValidation(resolver, interfaze, method);
-        resolver = context.getCacheStrategy().decorateForCaching(resolver, newMethodBinding, context);
+        resolver = context.getCacheStrategy().decorateForCaching(resolver, binding, context);
 
         return resolver;
     }
@@ -169,4 +180,5 @@ public class ProxyValueResolver implements ValueResolver {
 
         return true;
     }
+
 }

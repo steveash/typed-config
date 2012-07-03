@@ -89,4 +89,20 @@ public class ConfigBinding {
     public ConfigBinding withOptions(List<Option> newOptions) {
         return new ConfigBinding(configKeyToLookup, dataType, newOptions, annotations);
     }
+
+    public ConfigBinding withOption(Option optionToAdd) {
+        List<Option> newOptions = Lists.newArrayList(options);
+        newOptions.add(optionToAdd);
+        return withOptions(newOptions);
+    }
+
+    public ConfigBinding withoutOption(Option optionToRemove) {
+        List<Option> newOptions = Lists.newArrayList(options);
+        newOptions.remove(optionToRemove);
+        return withOptions(newOptions);
+    }
+
+    public boolean containsOption(Option option) {
+        return options.contains(option);
+    }
 }
