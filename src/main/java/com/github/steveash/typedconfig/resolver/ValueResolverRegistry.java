@@ -47,6 +47,7 @@ public class ValueResolverRegistry {
                     .add(new DoubleValueResolverFactory())
                     .add(new BigIntegerValueResolverFactory())
                     .add(new BigDecimalValueResolverFactory())
+                    .add(new EnumValueResolverFactory())
                     .add(new ConfigurationValueResolverFactory())
                             // collections
                     .add(new ListValueResolverFactory())
